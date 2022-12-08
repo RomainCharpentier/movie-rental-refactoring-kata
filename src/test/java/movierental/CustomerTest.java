@@ -1,7 +1,6 @@
 package movierental;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class CustomerTest {
@@ -9,12 +8,12 @@ public class CustomerTest {
     @Test
     public void test() {
         Customer customer = new Customer("Bob");
-        customer.addRental(new Rental(new Movie("Jaws", Movie.REGULAR), 2));
-        customer.addRental(new Rental(new Movie("Golden Eye", Movie.REGULAR), 3));
-        customer.addRental(new Rental(new Movie("Short New", Movie.NEW_RELEASE), 1));
-        customer.addRental(new Rental(new Movie("Long New", Movie.NEW_RELEASE), 2));
-        customer.addRental(new Rental(new Movie("Bambi", Movie.CHILDRENS), 3));
-        customer.addRental(new Rental(new Movie("Toy Story", Movie.CHILDRENS), 4));
+        customer.addRental(new Rental(Movie.of("Jaws", 2), 2));
+        customer.addRental(new Rental(Movie.of("Golden Eye", 2), 3));
+        customer.addRental(new Rental(Movie.of("Short New", 1), 1));
+        customer.addRental(new Rental(Movie.of("Long New", 1), 2));
+        customer.addRental(new Rental(Movie.of("Bambi", 3), 3));
+        customer.addRental(new Rental(Movie.of("Toy Story", 3), 4));
 
         String expected = "" +
                 "Rental Record for Bob\n" +
@@ -27,6 +26,6 @@ public class CustomerTest {
                 "Amount owed is 19.0\n" +
                 "You earned 7 frequent renter points";
 
-        assertEquals(expected, customer.statement());
+        Assert.assertEquals(expected, customer.statement());
     }
 }

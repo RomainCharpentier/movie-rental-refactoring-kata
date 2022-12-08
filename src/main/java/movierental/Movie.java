@@ -1,29 +1,27 @@
 package movierental;
 
-public class Movie {
+public abstract class Movie {
+    private final String title;
 
-    public static final int CHILDRENS = 2;
-    public static final int NEW_RELEASE = 1;
-    public static final int REGULAR = 0;
-
-    private String _title;
-    private int _priceCode;
-
-    public Movie(String title, int priceCode) {
-        _title = title;
-        _priceCode = priceCode;
+    public Movie(String title) {
+        this.title = title;
     }
 
-    public int getPriceCode() {
-        return _priceCode;
+    public static Movie of(String title, int priceCode) {
+        return switch (priceCode) {
+            case 1 -> new NewReleaseMovie(title);
+            case 2 -> new RegularMovie(title);
+            default -> new ChildrenMovie(title);
+        };
     }
 
-    public void setPriceCode(int arg) {
-        _priceCode = arg;
+    abstract Amount getPriceAccordingToRentDuration(int rentDuration);
+
+    public int getBonusOfPoints(int rentDuration) {
+        return 1;
     }
+
     public String getTitle() {
-        return _title;
+        return title;
     }
-
-
 }
